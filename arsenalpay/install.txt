@@ -1,0 +1,79 @@
+////////////////////////////////////////////////////
+///  ArsenalPay payment module for OpenCart v2.3x ///
+///    Install Instructions                       ///
+///  https://www.arsenalpay.ru                    ///
+/////////////////////////////////////////////////////
+
+-------
+INSTALL
+-------
+These instructions are for a manual installation using FTP, cPanel or other web hosting Control Panel.
+
+1. Upload all folders and files to your server from the "upload" folder, place them in the web root of your website.
+
+2. Login to the OpenCart admin section and go to "Extensions > Payments".
+
+3. Find "ArsenalPay" in the list of payment methods.
+
+4. Click on "Install" and then on "Edit" to make payment module settings.
+
+- Settings -
+
+1. Fill out "widget", "widgetKey", "callbackKey" fields with your received unique token and key.
+   If you don't have them yet, register through the form https://arsenalpay.ru/#register and 
+   ArsenalPay manager will contact you or ask for your token and key by sending us an email on pay@arsenalpay.ru
+
+3. Your online shop will be receiving callback requests about processed payments for automatically order status change.
+   The callbacks will being received onto the address assigned in "Callback URL" field. 
+   Callback is set to address: `http(s)://yourWebSiteAddress/index.php?route=payment/arsenalpay/ap_callback`
+
+4. You can specify IP address only from which it will be allowed to receive callback requests about payments
+   from ArsenalPay onto your site in "Allowed IP address" field.
+
+5. Set order statuses for pending, confirmed, failed, canceled, refunded, reversed, hold transactions.
+
+6. You can set "Total" amount which must be reached in checkout total to make payment method active.
+
+7. You can set "Geo Zone" where ArsenalPay payment method will be available.
+
+8. You can enable/disable "Logs".
+
+9. Set "Status" as "Enabled".
+
+10. Set "Currency code" as "RUB", if you have not that select, add it at "System > Localisation > Currencies" .
+
+11. Set "Sort Order": the order number of ArsenalPay in the list of enabled payment methods.
+
+12. Finally, save settings by clicking on "Save".
+
+- Settings for integration with online checkout -
+
+Settings of tax rates is only necessary if you are connected to [online checkout](https://arsenalpay.ru/documentation.html#54-fz-integraciya-s-onlajn-kassoj). For connection, please contact our manager.
+
+If you do not already have a tax regime on your site:
+
+1. Set up tax classes, you can found information on the opencart website: http://docs.opencart.com/system/localisation/tax/
+
+2. Return to the settings of the payment system "Arsenalpay"
+
+3. Go to "Online checkout settings" tab.
+
+You need to compare taxes in your store and in the Federal Tax Service. Settings for customization:
+
+1. "Default tax rate" - The default tax rate will be in the check, if no other classes is specified on the product card.
+
+2. "Shipment tax rate"
+
+3. If you have created tax classes on the site, you will see a list of taxes: on left side tax rate in your store, on right - in the Federal Tax Service. Please compare them.
+
+4. Click ""Save Changes"" to complete the setup.
+
+- Uninstall -
+
+1. Login to the Open Cart admin section and go to "Extensions > Payments".
+
+2. Find "Arsenal Pay" in the list of payment methods.
+
+3. Click on "Unistall".
+
+4. Delete files associated with ArsenalPay payment method from your web server.

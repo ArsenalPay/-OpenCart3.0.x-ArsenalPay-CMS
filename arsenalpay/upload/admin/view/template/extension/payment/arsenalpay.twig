@@ -1,0 +1,369 @@
+{{ header }} {{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<button type="submit" form="form-arsenalpay" data-toggle="tooltip" title="{{ button_save }}"
+						class="btn btn-primary"><i class="fa fa-save"></i></button>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}"
+				   class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+                                {% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if error_warning %}
+		<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		{% endif %}
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab-payment" data-toggle="tab">{{ text_payment_tab_header }}</a></li>
+			<li><a href="#tab-tax" data-toggle="tab">{{ text_tax_tab_header }}</a></li>
+		</ul>
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-arsenalpay"
+			  class="form-horizontal">
+			<div class="tab-content bootstrap">
+				<div class="tab-pane active" id="tab-payment">
+                                    <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                    <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_payment_edit }}</h3>
+                                            </div>
+                                            <div class="panel-body">
+
+                                                    <div class="form-group required">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-widget_id">{{ entry_widget_id }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <input type="text" name="payment_arsenalpay_widget_id" value="{{ payment_arsenalpay_widget_id }}"
+                                                                               placeholder="{{ entry_widget_id }}" id="input-widget_id"
+                                                                               class="form-control"/>
+                                                                    {% if error_widget_id %}
+                                                                    <div class="text-danger">{{ error_widget_id }}</div>
+                                                                    {% endif %}
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-widget_key">{{ entry_widget_key }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <input type="text" name="payment_arsenalpay_widget_key"
+                                                                               value="{{ payment_arsenalpay_widget_key }}"
+                                                                               placeholder="{{ entry_widget_key }}" id="input-widget_key"
+                                                                               class="form-control"/>
+                                                                    {% if error_widget_key %}
+                                                                    <div class="text-danger">{{ error_widget_ke }}</div>
+                                                                    {% endif %}
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-callback_key">{{ entry_callback_key }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <input type="text" name="payment_arsenalpay_callback_key"
+                                                                               value="{{ payment_arsenalpay_callback_key }}"
+                                                                               placeholder="{{ entry_callback_key }}" id="input-callback_key"
+                                                                               class="form-control"/>
+                                                                    {% if error_callback_key %}
+                                                                    <div class="text-danger">{{ error_callback_key }}</div>
+                                                                    {% endif %}
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-callback">
+                                                                <span data-toggle="tooltip" title="{{ help_callback_url }}">{{ entry_callback_url }}</span></label>
+                                                            <div class="col-sm-10">
+                                                                    <div class="input-group"><span class="input-group-addon"><i class="fa fa-link"></i></span>
+                                                                            <input type="text" readonly value="{{ callback_url }}" id="input-callback"
+                                                                                       class="form-control"/>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-ip"><span data-toggle="tooltip" data-html="true"
+                                                                    data-trigger="click"
+                                                                    title="{{ help_ip }}">{{ entry_ip }}</span></label>
+                                                            <div class="col-sm-10">
+                                                                    <input type="text" name="payment_arsenalpay_ip" value="{{ payment_arsenalpay_ip }}"
+                                                                               placeholder="{{ entry_ip }}" id="input-ip" class="form-control"/>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-check-status">
+                                                                <span data-toggle="tooltip"
+                                                                        title="{{ help_checked_status }}">{{ entry_checked_status }}</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_checked_status_id" id="input-check-status" class="form-control">
+                                                                            {% for order_status in order_statuses %}
+                                                                            {% if order_status.order_status_id == payment_arsenalpay_checked_status_id %}
+                                                                            <option value="{{ order_status.order_status_id }}"
+                                                                                            selected="selected">{{ order_status.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-completed-status">{{ entry_completed_status }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_completed_status_id" id="input-order-completed-status"
+                                                                                    class="form-control">
+                                                                            {% for order_status in order_statuses %}
+                                                                            {% if order_status.order_status_id == payment_arsenalpay_completed_status_id %}
+                                                                            <option value="{{ order_status.order_status_id }}"
+                                                                                            selected="selected">{{ order_status.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-canceled-status">{{ entry_canceled_status }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_canceled_status_id" id="input-canceled-status"
+                                                                                    class="form-control">
+                                                                            {% for order_status in order_statuses %}
+                                                                            {% if order_status.order_status_id == payment_arsenalpay_canceled_status_id %}
+                                                                            <option value="{{ order_status.order_status_id }}"
+                                                                                            selected="selected">{{ order_status.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-hold-status">{{ entry_holden_status }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_holden_status_id" id="input-hold-status" class="form-control">
+                                                                            {% for order_status in order_statuses %}
+                                                                            {% if order_status.order_status_id == payment_arsenalpay_holden_status_id %}
+                                                                            <option value="{{ order_status.order_status_id }}"
+                                                                                            selected="selected">{{ order_status.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-refund-status">{{ entry_refunded_status }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_refunded_status_id" id="input-refund-status" class="form-control"> 
+                                                                            {% for order_status in order_statuses %}
+                                                                            {% if order_status.order_status_id == payment_arsenalpay_refunded_status_id %}
+                                                                            <option value="{{ order_status.order_status_id }}"
+                                                                                            selected="selected">{{ order_status.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-reverse-status">{{ entry_reversed_status }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_reversed_status_id" id="input-reverse-status" class="form-control">
+                                                                            {% for order_status in order_statuses %}
+                                                                            {% if order_status.order_status_id == payment_arsenalpay_reversed_status_id %}
+                                                                            <option value="{{ order_status.order_status_id }}"
+                                                                                            selected="selected">{{ order_status.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip"
+                                                                    title="{{ help_total }}">{{ entry_total }}</span></label>
+                                                            <div class="col-sm-10">
+                                                                    <input type="text" name="payment_arsenalpay_total" value="{{ payment_arsenalpay_total }}"
+                                                                               placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-geo-zone">{{ entry_geo_zone }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_geo_zone_id" id="input-geo-zone" class="form-control">
+                                                                            <option value="0">{{ text_all_zones }}</option>
+                                                                            {% for geo_zone in geo_zones %}
+                                                                            {% if geo_zone.geo_zone_id == payment_arsenalpay_geo_zone_id %}
+                                                                            <option value="{{ geo_zone.geo_zone_id }}"
+                                                                                            selected="selected">{{ geo_zone.name }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-debug">{{ entry_debug }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_debug" id="input-debug" class="form-control">
+                                                                            {% if payment_arsenalpay_debug %}
+                                                                            <option value="1" selected="selected">{{ text_enabled }}</option>
+                                                                            <option value="0">{{ text_disabled }}</option>
+                                                                            {% else %}
+                                                                            <option value="1">{{ text_enabled }}</option>
+                                                                            <option value="0" selected="selected">{{ text_disabled }}</option>
+                                                                            {% endif %}
+                                                                    </select>
+                                                                    <span class="help-block">{{ help_debug }}</span>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_status" id="input-status" class="form-control">
+                                                                            {% if payment_arsenalpay_status %}
+                                                                            <option value="1" selected="selected">{{ text_enabled }}</option>
+                                                                            <option value="0">{{ text_disabled }}</option>
+                                                                            {% else %}
+                                                                            <option value="1">{{ text_enabled }}</option>
+                                                                            <option value="0" selected="selected">{{ text_disabled }}</option>
+                                                                            {% endif %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label"
+                                                                       for="input-sort-order">{{ entry_sort_order }}</label>
+                                                            <div class="col-sm-10">
+                                                                    <input type="text" name="payment_arsenalpay_sort_order"
+                                                                               value="{{ payment_arsenalpay_sort_order }}"
+                                                                               placeholder="{{ entry_sort_order }}" id="input-sort-order"
+                                                                               class="form-control"/>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="input-currency" "">
+                                                            <span data-toggle="tooltip"
+                                                                      title="{{ help_currency_code }}">{{ entry_currency_code }}</span>
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                    <select name="payment_arsenalpay_currency_code" id="input-currency" class="form-control">
+                                                                            {% for currency in currencies %}
+                                                                            {% if currency.code == payment_arsenalpay_currency_code %}
+                                                                            <option value="{{ currency.code }}"
+                                                                                            selected="selected">{{ currency.code }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ currency.code }}">{{ currency.code }}</option>
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+				</div>
+				<div class="tab-pane" id="tab-tax">
+                                    <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                    <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_tax_edit }}</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                    <div class="form-group">
+                                                            <h4 class="container-fluid">
+                                                                    {{ text_payment_arsenalpay_tax }}
+                                                            </h4>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="tax-class-default">
+                                                                    {{ entry_default_tax_rate }}
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                    <select id="tax-class-default" name="payment_arsenalpay_default_tax_rate" class="form-control">
+                                                                            {% for ap_tax_id, ap_tax_entry in ap_tax_rates %}
+                                                                            {% if ap_tax_id == payment_arsenalpay_default_tax_rate %}
+                                                                            <option value="{{ ap_tax_id }}" selected>{{ ap_tax_entry }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ ap_tax_id }}">{{ ap_tax_entry }}</option>    
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                                    <p class="help-block">{{ help_default_tax_rate }}</p>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="tax-class-shipment">
+                                                                    {{ entry_shipment_tax_rate }}
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                    <select id="tax-class-shipment" name="payment_arsenalpay_shipment_tax_rate" class="form-control">
+                                                                            {% for ap_tax_id, ap_tax_entry in ap_tax_rates %}
+                                                                            <?php foreach ($ap_tax_rates as $ap_tax_id => $ap_tax_entry) : ?>
+                                                                            {% if ap_tax_id == payment_arsenalpay_shipment_tax_rate %}
+                                                                            <option value="{{ ap_tax_id }}" selected>{{ ap_tax_entry }}</option>
+                                                                            {% else %}
+                                                                            <option value="{{ ap_tax_id }}">{{ ap_tax_entry }}</option>    
+                                                                            {% endif %}
+                                                                            {% endfor %}
+                                                                    </select>
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label">
+                                                                    {{ entry_tax_table }}
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                    <table class="table">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                    <th>{{ help_header_shop_tax_classes }}</th>
+                                                                                    <th>{{ help_header_ap_tax_rates }}</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            {% for shop_tax_id, shop_tax_name in shop_tax_classes %}
+                                                                            <tr>
+                                                                                    <td>
+                                                                                            <label class="control-label" for="tax-class-{{ shop_tax_id }}">{{ shop_tax_name }}</td>
+                                                                                    <td>
+                                                                                            <select id="tax-class-{{ shop_tax_id }}" name="payment_arsenalpay_tax_rates_map[{{ shop_tax_id }}]" class="form-control">
+                                                                                                    {% for ap_tax_id, ap_tax_entry in ap_tax_rates %}
+                                                                                                    {% if payment_arsenalpay_tax_rates_map.shop_tax_id ==  ap_tax_id %}
+                                                                                                    <option value="{{ ap_tax_id }}" selected>{{ ap_tax_entry }}</option>
+                                                                                                    {% else %}
+                                                                                                    <option value="{{ ap_tax_id }}">{{ ap_tax_entry }}</option>
+                                                                                                    {% endif %}
+                                                                                                    {% endfor %}
+                                                                                            </select>
+                                                                                    </td>
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                            </tbody>
+                                                                    </table>
+
+                                                            </div>
+                                                    </div>
+
+                                            </div>
+                                    </div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{{ footer }}
